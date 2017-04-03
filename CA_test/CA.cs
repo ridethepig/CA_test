@@ -7,9 +7,9 @@ namespace CA_test
     {
         public graphControl gphCtrl;
         //public List<Tuple<int, int>> StartCells = new List<Tuple<int, int>>();
-        Random randomizer;
+        Random randomizer = new Random();
         public Graphics graph;
-        public CA(int size_x,int size_y,int blockSize,ref Graphics graph)
+        public CA(int size_x,int size_y,int blockSize,Graphics graph)
         {
             gphCtrl = new graphControl(size_x, size_y, blockSize);
             this.graph = graph;
@@ -19,7 +19,7 @@ namespace CA_test
         {            
             for (int i = 0; i < num; i++)
             {
-                randomizer = new Random();
+                //randomizer = new Random();
                 int x = randomizer.Next(1, gphCtrl.size_x);
                 int y = randomizer.Next(1, gphCtrl.size_y);               
                 gphCtrl.l_cells[x][y].setStat(1);

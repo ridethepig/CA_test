@@ -21,8 +21,9 @@ namespace CA_test
         public int iNumStep = -1;
         public string sNumStep = string.Empty;
         public static Graphics graph = null;
-        public CA automation = new CA(20, 20, 20, ref graph);
+        public CA automation;
         bool startCnt = false;
+        int stepCnt = 0;
         private void startButton_Click(object sender, EventArgs e)
         {
             if (startCnt)
@@ -49,6 +50,8 @@ lbl1:
         private void StepButton_Click(object sender, EventArgs e)
         {
             automation.animate(1,0);
+            stepCnt++;
+            stepCntLabel.Text = Convert.ToString(stepCnt);
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -64,7 +67,8 @@ lbl1:
             e.Graphics.FillRectangle(Brushes.Blue, rect);
             pencil.Dispose();
             e.Graphics.Dispose();*/
-            graph = e.Graphics;                        
+            graph = panel1.CreateGraphics();
+            automation = new CA(20, 20, 20, graph);
             //automation.gphCtrl.setCell(ref graph, 1, 1);
         }
 
@@ -84,6 +88,7 @@ lbl1:
             startCnt = false;
             StepButton.Enabled = true;
             startButton.Enabled = true;
+            automation.gphCtrl.refreshWindow(ref graph);
         }
     }
 }
