@@ -19,31 +19,36 @@ namespace CA_test
 
         public string sStep = string.Empty;
         public int iNumStep = -1;
-        public string sNumStep = string.Empty;               
-
+        public string sNumStep = string.Empty;
+        public static Graphics graph = null;
+        public CA automation = new CA(20, 20, 20, ref graph);
+        bool startCnt = false;
         private void startButton_Click(object sender, EventArgs e)
         {
-            if (iNumStep == -1)
+            if (startCnt)
             {
-                iNumStep = 100;                
-            }
-            else
-            {                
-                try
-                {
-                    iNumStep = Convert.ToInt32(stepInput.Text);
-                }
-                catch
-                {
-                    stepInput.Text = "Unexpected Input";
+                var dr = MessageBox.Show("Another {0} steps?");
+                if (dr == DialogResult.No)
                     return;
-                }
+                goto lbl1;
             }
+            try
+            {
+                iNumStep = Convert.ToInt32(stepInput.Text);
+            }
+            catch
+            {
+                stepInput.Text = "Unexpected Input";
+                return;
+            }
+lbl1:
+            automation.animate(iNumStep,0);
+            startCnt = true;
         }
 
         private void StepButton_Click(object sender, EventArgs e)
         {
-
+            automation.animate(1,0);
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -59,20 +64,26 @@ namespace CA_test
             e.Graphics.FillRectangle(Brushes.Blue, rect);
             pencil.Dispose();
             e.Graphics.Dispose();*/
-            CA automation = new CA(20, 20, 20);
-            var graph = e.Graphics;
-            automation.gphCtrl.refreshWindow(ref graph,true);
-            automation.gphCtrl.setCell(ref graph, 1, 1);
+            graph = e.Graphics;                        
+            //automation.gphCtrl.setCell(ref graph, 1, 1);
         }
 
         private void reStartButton_Click(object sender, EventArgs e)
         {
-
+            automation.gphCtrl.clear(ref graph);            
         }
 
         private void stepInput_TextChanged(object sender, EventArgs e)
+        {            
+        }
+
+        private void initButton_Click(object sender, EventArgs e)
         {
-            iNumStep = 0;
+            automation.gphCtrl.refreshWindow(ref graph, true);
+            automation.randomize(15);
+            startCnt = false;
+            StepButton.Enabled = true;
+            startButton.Enabled = true;
         }
     }
 }

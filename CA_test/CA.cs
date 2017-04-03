@@ -1,26 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 namespace CA_test
 {
-    class CA
+    public class CA
     {
         public graphControl gphCtrl;
         //public List<Tuple<int, int>> StartCells = new List<Tuple<int, int>>();
         Random randomizer;
-        public CA(int size_x,int size_y,int blockSize)
+        public Graphics graph;
+        public CA(int size_x,int size_y,int blockSize,ref Graphics graph)
         {
-            gphCtrl = new graphControl(size_x, size_y, blockSize);            
+            gphCtrl = new graphControl(size_x, size_y, blockSize);
+            this.graph = graph;
         }
 
         public void randomize(int num)
-        {
-            //StartCells.Clear();
+        {            
             for (int i = 0; i < num; i++)
             {
                 randomizer = new Random();
                 int x = randomizer.Next(1, gphCtrl.size_x);
-                int y = randomizer.Next(1, gphCtrl.size_y);
-               //StartCells.Add(new Tuple<int, int>(x, y));
+                int y = randomizer.Next(1, gphCtrl.size_y);               
                 gphCtrl.l_cells[x][y].setStat(1);
             }            
         }
@@ -52,6 +53,7 @@ namespace CA_test
             {
                 Core(1, 1, gphCtrl.size_x + 1, gphCtrl.size_y + 1);
             }
+            gphCtrl.refreshWindow(ref graph);
         }
     }
 }

@@ -30,12 +30,13 @@
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.stepCntLabel = new System.Windows.Forms.Label();
             this.stepInput = new System.Windows.Forms.TextBox();
             this.reStartButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.StepButton = new System.Windows.Forms.Button();
             this.startButton = new System.Windows.Forms.Button();
-            this.stepCntLabel = new System.Windows.Forms.Label();
+            this.initButton = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -51,6 +52,7 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.initButton);
             this.panel2.Controls.Add(this.stepCntLabel);
             this.panel2.Controls.Add(this.stepInput);
             this.panel2.Controls.Add(this.reStartButton);
@@ -62,6 +64,15 @@
             this.panel2.Size = new System.Drawing.Size(160, 400);
             this.panel2.TabIndex = 1;
             // 
+            // stepCntLabel
+            // 
+            this.stepCntLabel.AutoSize = true;
+            this.stepCntLabel.Location = new System.Drawing.Point(77, 135);
+            this.stepCntLabel.Name = "stepCntLabel";
+            this.stepCntLabel.Size = new System.Drawing.Size(11, 12);
+            this.stepCntLabel.TabIndex = 18;
+            this.stepCntLabel.Text = "0";
+            // 
             // stepInput
             // 
             this.stepInput.ImeMode = System.Windows.Forms.ImeMode.NoControl;
@@ -69,7 +80,7 @@
             this.stepInput.Name = "stepInput";
             this.stepInput.Size = new System.Drawing.Size(147, 21);
             this.stepInput.TabIndex = 17;
-            this.stepInput.Text = "DEFAULT:100";
+            this.stepInput.Text = "100";
             this.stepInput.TextChanged += new System.EventHandler(this.stepInput_TextChanged);
             // 
             // reStartButton
@@ -85,7 +96,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(5, 99);
+            this.label1.Location = new System.Drawing.Point(5, 135);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(65, 12);
             this.label1.TabIndex = 15;
@@ -93,6 +104,7 @@
             // 
             // StepButton
             // 
+            this.StepButton.Enabled = false;
             this.StepButton.Location = new System.Drawing.Point(7, 66);
             this.StepButton.Name = "StepButton";
             this.StepButton.Size = new System.Drawing.Size(150, 30);
@@ -103,6 +115,7 @@
             // 
             // startButton
             // 
+            this.startButton.Enabled = false;
             this.startButton.Location = new System.Drawing.Point(7, 30);
             this.startButton.Name = "startButton";
             this.startButton.Size = new System.Drawing.Size(150, 30);
@@ -111,14 +124,15 @@
             this.startButton.UseVisualStyleBackColor = true;
             this.startButton.Click += new System.EventHandler(this.startButton_Click);
             // 
-            // stepCntLabel
+            // initButton
             // 
-            this.stepCntLabel.AutoSize = true;
-            this.stepCntLabel.Location = new System.Drawing.Point(77, 99);
-            this.stepCntLabel.Name = "stepCntLabel";
-            this.stepCntLabel.Size = new System.Drawing.Size(11, 12);
-            this.stepCntLabel.TabIndex = 18;
-            this.stepCntLabel.Text = "0";
+            this.initButton.Location = new System.Drawing.Point(6, 102);
+            this.initButton.Name = "initButton";
+            this.initButton.Size = new System.Drawing.Size(150, 30);
+            this.initButton.TabIndex = 19;
+            this.initButton.Text = "Initialize";
+            this.initButton.UseVisualStyleBackColor = true;
+            this.initButton.Click += new System.EventHandler(this.initButton_Click);
             // 
             // MainForm
             // 
@@ -147,6 +161,7 @@
         private System.Windows.Forms.Button reStartButton;
         private System.Windows.Forms.TextBox stepInput;
         private System.Windows.Forms.Label stepCntLabel;
+        private System.Windows.Forms.Button initButton;
     }
 }
 

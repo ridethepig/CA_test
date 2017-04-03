@@ -124,12 +124,13 @@ namespace CA_test
             l_cells[x][y].drawSelf(ref graph);
         }
         
-        public void clear()
+        public void clear(ref Graphics graph)
         {
             for (int i = 1; i <= size_x; i++)
                 for (int j = 1; j <= size_y; j++)
                 {
                     l_cells[i][j].setStat(0);
+                    l_cells[i][j].drawSelf(ref graph);
                 }
         }
     }
