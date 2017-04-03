@@ -40,32 +40,61 @@ namespace CA_test
     }
     public class graphControl
     {
-        int size_x, size_y;
-        int blockSize;
-        public cell[,] map;
+        public int size_x, size_y;
+        public int blockSize;
+        List<List<cell>> l_cells;
         
         public graphControl(int size_x,int size_y,int blockSize)
         {
             this.size_x = size_x;
             this.size_y = size_y;
             this.blockSize = blockSize;
-            this.map = new cell[size_x,size_y];
+            l_cells = new List<List<cell>>();
             calcPixel();
         }
 
         private void calcPixel()
         {
             for (int i = 0; i < size_x; i++)
+            {
+                List<cell> cells = new List<cell>();
                 for (int j = 0; j < size_y; j++)
-                {
-                    map[1, j] = new cell(0, i * blockSize + 1, j * blockSize + 1, blockSize, Color.White);
-                }            
+                {                    
+                    cells.Add(new cell(0, i * blockSize + 1, j * blockSize + 1, blockSize, Color.White));
+                }
+                l_cells.Add(cells);
+            }
         }
 
         public int getNeighbor(int i, int j)
         {
-            return map[i + 1, j].status + map[i + 1, j + 1].status + map[i - 1, j + 1].status + map[i, j + 1].status
-                 + map[i - 1, j].status + map[i - 1, j - 1].status + map[i + 1, j - 1].status + map[i, j - 1].status;
+            return l_cells[i + 1][j].status + l_cells[i + 1][j + 1].status + l_cells[i - 1][j + 1].status + l_cells[i][j + 1].status
+                 + l_cells[i - 1][j].status + l_cells[i - 1][j - 1].status + l_cells[i + 1][j - 1].status + l_cells[i][j - 1].status;
+        }
+
+        public void refreshWindow(ref Graphics graph)
+        {
+            for (int i = 0; i < size_x; i++)
+                for (int j = 0; j < size_y; j++)
+                {
+                    l_cells[i][j].drawSelf(ref graph);
+                }
+        }
+
+        public void refreshWindow(ref Graphics graph,bool switcher)
+        {
+
+            for (int i = 0; i < size_x; i++)
+                for (int j = 0; j < size_y; j++)
+                {
+                    l_cells[i][j].drawBorder(ref graph);
+                }
+        }
+
+        public void setCell(ref Graphics graph,int x,int y)
+        {
+            l_cells[x][y].brush = Brushes.Black;
+            l_cells[x][y].drawSelf(ref graph);
         }
     }
 }
