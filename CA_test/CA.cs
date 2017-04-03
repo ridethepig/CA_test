@@ -22,5 +22,16 @@ namespace CA_test
                 StartCells.Add(new Tuple<int, int>(x, y));
             }            
         }
+        
+        public void Core()
+        {            
+            for (int i = 0; i < gphCtrl.l_cells.Count; i++)
+            {
+                for (int j = 0; j < gphCtrl.l_cells[i].Count; j++)
+                {
+                    int iNumNeighbors = gphCtrl.getNeighbor(i, j);
+                }
+            }
+        }
     }
 }

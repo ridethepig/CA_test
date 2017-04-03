@@ -18,17 +18,27 @@ namespace CA_test
         }
 
         public string sStep = string.Empty;
-        public StringBuilder sNumStep = new StringBuilder();
-        public int iNumStep = 100;
-           
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
+        public int iNumStep = -1;
+        public string sNumStep = string.Empty;               
 
         private void startButton_Click(object sender, EventArgs e)
         {
-
+            if (iNumStep == -1)
+            {
+                iNumStep = 100;                
+            }
+            else
+            {                
+                try
+                {
+                    iNumStep = Convert.ToInt32(stepInput.Text);
+                }
+                catch
+                {
+                    stepInput.Text = "Unexpected Input";
+                    return;
+                }
+            }
         }
 
         private void StepButton_Click(object sender, EventArgs e)
@@ -58,6 +68,11 @@ namespace CA_test
         private void reStartButton_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void stepInput_TextChanged(object sender, EventArgs e)
+        {
+            iNumStep = 0;
         }
     }
 }

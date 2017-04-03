@@ -42,7 +42,7 @@ namespace CA_test
     {
         public int size_x, size_y;
         public int blockSize;
-        List<List<cell>> l_cells;
+        public List<List<cell>> l_cells;
         
         public graphControl(int size_x,int size_y,int blockSize)
         {
@@ -71,7 +71,7 @@ namespace CA_test
             return l_cells[i + 1][j].status + l_cells[i + 1][j + 1].status + l_cells[i - 1][j + 1].status + l_cells[i][j + 1].status
                  + l_cells[i - 1][j].status + l_cells[i - 1][j - 1].status + l_cells[i + 1][j - 1].status + l_cells[i][j - 1].status;
         }
-
+        
         public void refreshWindow(ref Graphics graph)
         {
             for (int i = 0; i < size_x; i++)
@@ -93,6 +93,7 @@ namespace CA_test
 
         public void setCell(ref Graphics graph,int x,int y)
         {
+            x--; y--;
             l_cells[x][y].brush = Brushes.Black;
             l_cells[x][y].drawSelf(ref graph);
         }
