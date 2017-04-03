@@ -45,18 +45,7 @@ namespace CA_test
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-            /*Pen pencil = new Pen(Color.Black, 1);
-            e.Graphics.DrawRectangle(pencil, 0, 0, panel1.Width - 1, panel1.Height - 1);
-            for (int i = 21; i <= 400; i += 20)
-            {
-                e.Graphics.DrawLine(pencil, 0, i, panel1.Width - 1, i);
-                e.Graphics.DrawLine(pencil, i, 0, i, panel1.Height - 1);
-            }                                   
-            Rectangle rect = new Rectangle(1, 1, 20, 20);
-            e.Graphics.FillRectangle(Brushes.Blue, rect);
-            pencil.Dispose();
-            e.Graphics.Dispose();*/
+        {            
             graph = panel1.CreateGraphics();
             automation = new CA(20, 20, 20, graph);
         }
@@ -65,11 +54,7 @@ namespace CA_test
         {
             automation.gphCtrl.clear(ref graph);            
         }
-
-        private void stepInput_TextChanged(object sender, EventArgs e)
-        {            
-        }
-
+        
         private void initButton_Click(object sender, EventArgs e)
         {
             automation.gphCtrl.refreshWindow(ref graph, true);

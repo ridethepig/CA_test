@@ -129,7 +129,6 @@
             this.stepInput.Size = new System.Drawing.Size(68, 21);
             this.stepInput.TabIndex = 17;
             this.stepInput.Text = "100";
-            this.stepInput.TextChanged += new System.EventHandler(this.stepInput_TextChanged);
             // 
             // reStartButton
             // 
