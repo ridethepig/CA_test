@@ -17,15 +17,20 @@ namespace CA_test
         public Brush brush;
         public Rectangle rect, rect_b;
 
-        public cell(short status,int locx,int locy,int size,Color color)
-        {
-            this.status = status;
+        public cell(short status,int locx,int locy,int size)
+        {            
                  location_x = locx;
                  location_y = locy;
             this.size = size;
-                 brush = new SolidBrush(color);
+            setStat(status);
             rect = new Rectangle(locx + 1, locy + 1, size - 1, size - 1);
             rect_b = new Rectangle(locx, locy, size, size);
+        }
+
+        public cell()
+        {
+            status = 0;
+            brush = null;             
         }
 
         public void drawSelf(ref Graphics graph)
@@ -36,6 +41,18 @@ namespace CA_test
         public void drawBorder(ref Graphics graph)
         {
             graph.DrawRectangle(Pens.Black, rect_b);
+        }
+        
+        public void setStat(short stat)
+        {
+            status = stat;
+            switch(status)
+            {
+                case 0:brush = Brushes.White;
+                    break;
+                case 1:brush = Brushes.Blue;
+                    break;
+            }
         }
     }
     public class graphControl
@@ -55,15 +72,25 @@ namespace CA_test
 
         private void calcPixel()
         {
-            for (int i = 0; i < size_x; i++)
-            {
+            //Please Pay Attention!!!Here I set a border for the cells so that the indexer will not run out
+            // Do Not use them and think as if the list start from 1.
+            List<cell> tmp_cells = new List<cell>();
+            cell tmp_cell = new cell();
+            for (int i = 0; i <= size_x + 1; i++)
+                tmp_cells.Add(tmp_cell);
+            l_cells.Add(tmp_cells);
+            for (int i = 1; i <= size_x; i++)
+            {                
                 List<cell> cells = new List<cell>();
-                for (int j = 0; j < size_y; j++)
+                cells.Add(tmp_cell);
+                for (int j = 1; j <= size_y; j++)
                 {                    
-                    cells.Add(new cell(0, i * blockSize + 1, j * blockSize + 1, blockSize, Color.White));
+                    cells.Add(new cell(0, i * blockSize + 1, j * blockSize + 1, blockSize));
                 }
+                cells.Add(tmp_cell);
                 l_cells.Add(cells);
             }
+            l_cells.Add(tmp_cells);
         }
 
         public int getNeighbor(int i, int j)
@@ -74,8 +101,8 @@ namespace CA_test
         
         public void refreshWindow(ref Graphics graph)
         {
-            for (int i = 0; i < size_x; i++)
-                for (int j = 0; j < size_y; j++)
+            for (int i = 1; i <= size_x; i++)
+                for (int j = 1; j <= size_y; j++)
                 {
                     l_cells[i][j].drawSelf(ref graph);
                 }
@@ -84,18 +111,26 @@ namespace CA_test
         public void refreshWindow(ref Graphics graph,bool switcher)
         {
 
-            for (int i = 0; i < size_x; i++)
-                for (int j = 0; j < size_y; j++)
+            for (int i = 1; i <= size_x; i++)
+                for (int j = 1; j <= size_y; j++)
                 {
                     l_cells[i][j].drawBorder(ref graph);
                 }
         }
 
         public void setCell(ref Graphics graph,int x,int y)
-        {
-            x--; y--;
+        {            
             l_cells[x][y].brush = Brushes.Black;
             l_cells[x][y].drawSelf(ref graph);
+        }
+        
+        public void clear()
+        {
+            for (int i = 1; i <= size_x; i++)
+                for (int j = 1; j <= size_y; j++)
+                {
+                    l_cells[i][j].setStat(0);
+                }
         }
     }
 }
