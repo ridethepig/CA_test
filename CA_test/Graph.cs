@@ -54,6 +54,23 @@ namespace CA_test
                     break;
             }
         }
+
+        public void setStat()
+        {
+            if (status == 0)
+                status = 1;
+            else
+                status = 0;
+            switch (status)
+            {
+                case 0:
+                    brush = Brushes.White;
+                    break;
+                case 1:
+                    brush = Brushes.Blue;
+                    break;
+            }
+        }
     }
     public class graphControl
     {
@@ -132,6 +149,14 @@ namespace CA_test
                     l_cells[i][j].setStat(0);
                     l_cells[i][j].drawSelf(ref graph);
                 }
+        }
+
+        public void Pos2Cell(Point pos,ref Graphics graph)
+        {
+            int i = pos.X / blockSize;
+            int j = pos.Y / blockSize;
+            l_cells[i][j].setStat();
+            l_cells[i][j].drawSelf(ref graph);
         }
     }
 }

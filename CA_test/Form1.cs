@@ -17,22 +17,12 @@ namespace CA_test
             InitializeComponent();           
         }
 
-        public string sStep = string.Empty;
         public int iNumStep = -1;
-        public string sNumStep = string.Empty;
         public static Graphics graph = null;
-        public CA automation;
-        bool startCnt = false;
+        public CA automation;        
         int stepCnt = 0;
         private void startButton_Click(object sender, EventArgs e)
-        {
-            if (startCnt)
-            {
-                var dr = MessageBox.Show("Another {0} steps?");
-                if (dr == DialogResult.No)
-                    return;
-                goto lbl1;
-            }
+        {            
             try
             {
                 iNumStep = Convert.ToInt32(stepInput.Text);
@@ -42,9 +32,9 @@ namespace CA_test
                 stepInput.Text = "Unexpected Input";
                 return;
             }
-lbl1:
             automation.animate(iNumStep,0);
-            startCnt = true;
+            stepCnt += iNumStep;
+            stepCntLabel.Text = Convert.ToString(stepCnt);
         }
 
         private void StepButton_Click(object sender, EventArgs e)
@@ -69,7 +59,6 @@ lbl1:
             e.Graphics.Dispose();*/
             graph = panel1.CreateGraphics();
             automation = new CA(20, 20, 20, graph);
-            //automation.gphCtrl.setCell(ref graph, 1, 1);
         }
 
         private void reStartButton_Click(object sender, EventArgs e)
@@ -84,11 +73,32 @@ lbl1:
         private void initButton_Click(object sender, EventArgs e)
         {
             automation.gphCtrl.refreshWindow(ref graph, true);
-            automation.randomize(15);
-            startCnt = false;
+            try
+            {
+                automation.randomize(Convert.ToInt32(RandomCellsInput.Text));
+            }   
+            catch
+            {
+                RandomCellsInput.Text = "ERROR";
+                return;
+            }
             StepButton.Enabled = true;
             startButton.Enabled = true;
             automation.gphCtrl.refreshWindow(ref graph);
+        }           
+
+        private void panel1_MouseDown(object sender, MouseEventArgs e)
+        {
+            var cur_ms_pos = MousePosition;
+            cur_ms_pos = panel1.PointToClient(cur_ms_pos);            
+            automation.gphCtrl.Pos2Cell(cur_ms_pos,ref graph);
+        }
+
+        private void initButton2_Click(object sender, EventArgs e)
+        {
+            automation.gphCtrl.refreshWindow(ref graph, true);
+            StepButton.Enabled = true;
+            startButton.Enabled = true;
         }
     }
 }
