@@ -47,7 +47,7 @@ namespace CA_test
         private void panel1_Paint(object sender, PaintEventArgs e)
         {            
             graph = panel1.CreateGraphics();
-            automation = new CA(20, 20, 20, graph);
+            automation = new CA(40, 40, 10, graph);
         }
 
         private void reStartButton_Click(object sender, EventArgs e)
